@@ -4,7 +4,7 @@ An [Obsidian](https://obsidian.md/) [Plugin](https://obsidian.md/plugins) to hel
 
 ## Plugin details
 
-Zero-config plugin that closes after 5 minutes of not looking at them.
+Zero-config plugin that closes document tabs after 5 minutes of not looking at them.
 
 ## Building
 
