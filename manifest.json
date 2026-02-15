@@ -1,0 +1,9 @@
+{
+	"id": "auto-close-tabs",
+	"name": "Auto Close Inactive Tabs",
+	"version": "1.0.2",
+	"minAppVersion": "0.15.0",
+	"description": "Automatically closes tabs after 5 minutes of inactivity.",
+	"author": "Sami Lamti <sami.lamti@gmail.com>",
+	"isDesktopOnly": false
+}

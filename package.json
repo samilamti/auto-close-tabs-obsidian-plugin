@@ -1,0 +1,16 @@
+{
+  "name": "auto-close-tabs",
+  "version": "1.0.2",
+  "description": "Automatically closes document tabs within Obsidian after 5 minutes of inactivity",
+  "license": "MIT",
+  "author": "Sami Lamti <sami.lamti@gmail.com> (https://www.linkedin.com/in/samilamti/)",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "obsidian": "^1.12.0",
+    "ts-node": "^10.9.2"
+  }
+}
