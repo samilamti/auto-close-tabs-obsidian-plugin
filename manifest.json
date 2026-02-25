@@ -1,9 +1,9 @@
 {
 	"id": "auto-close-tabs",
-	"name": "Auto Close Inactive Tabs",
-	"version": "1.0.2",
+	"name": "Auto Close Tabs",
+	"version": "1.0.3",
 	"minAppVersion": "0.15.0",
-	"description": "Automatically closes tabs after 5 minutes of inactivity.",
+	"description": "Zero-config plugin that closes document tabs after 5 minutes of not looking at them.",
 	"author": "Sami Lamti <sami.lamti@gmail.com>",
 	"isDesktopOnly": false
 }

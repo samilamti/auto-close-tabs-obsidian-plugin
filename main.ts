@@ -30,7 +30,11 @@ export default class AutoCloseTabsPlugin extends Plugin {
         this.app.workspace.iterateAllLeaves((leaf) => {
             const lastActive = this.lastActiveMap.get(leaf);
 
-            if (leaf.getViewState().pinned) return;
+            const viewState = leaf.getViewState();
+            if (viewState.pinned || viewState.active) {
+                this.updateTimestamp(leaf);
+                return
+            };
 
             if (lastActive && (now - lastActive > fiveMinutes)) {
                 leaf.detach();
