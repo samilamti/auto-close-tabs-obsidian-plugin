@@ -77,20 +77,41 @@ var AutoCloseTabsPlugin = /** @class */ (function (_super) {
         });
     };
     AutoCloseTabsPlugin.prototype.updateTimestamp = function (leaf) {
-        this.lastActiveMap.set(leaf, Date.now());
+        var now = Date.now();
+        //console.log(`Updating timestamp on ${leaf.getDisplayText()}: ${now})`);
+        this.lastActiveMap.set(leaf, now);
+    };
+    AutoCloseTabsPlugin.prototype.keepOpen = function (type) {
+        switch (type) {
+            case 'search':
+            case 'empty':
+            case 'file-explorer':
+            case 'bookmarks':
+            case 'backlink':
+            case 'tag':
+            case 'outline':
+                return true;
+            default:
+                return false;
+        }
     };
     AutoCloseTabsPlugin.prototype.checkInactiveTabs = function () {
         var _this = this;
         var fiveMinutes = 5 * 60 * 1000;
         var now = Date.now();
         this.app.workspace.iterateAllLeaves(function (leaf) {
-            var lastActive = _this.lastActiveMap.get(leaf);
             var viewState = leaf.getViewState();
+            var type = viewState.type;
+            //console.log(`Checking leaf: ${leaf.getDisplayText()} (type: ${type})`);
             if (viewState.pinned || viewState.active) {
                 _this.updateTimestamp(leaf);
                 return;
             }
             ;
+            if (_this.keepOpen(type)) {
+                return;
+            }
+            var lastActive = _this.lastActiveMap.get(leaf);
             if (lastActive && (now - lastActive > fiveMinutes)) {
                 leaf.detach();
                 _this.lastActiveMap.delete(leaf);

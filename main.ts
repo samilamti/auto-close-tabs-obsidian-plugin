@@ -20,7 +20,24 @@ export default class AutoCloseTabsPlugin extends Plugin {
     }
 
     updateTimestamp(leaf: WorkspaceLeaf) {
-        this.lastActiveMap.set(leaf, Date.now());
+        const now = Date.now();
+        //console.log(`Updating timestamp on ${leaf.getDisplayText()}: ${now})`);
+        this.lastActiveMap.set(leaf, now);
+    }
+
+    keepOpen(type: string) {
+        switch (type) {
+            case 'search':
+            case 'empty':
+            case 'file-explorer':
+            case 'bookmarks':
+            case 'backlink':
+            case 'tag':
+            case 'outline':
+                return true;
+            default:
+                return false;
+        }
     }
 
     checkInactiveTabs() {
@@ -28,14 +45,21 @@ export default class AutoCloseTabsPlugin extends Plugin {
         const now = Date.now();
 
         this.app.workspace.iterateAllLeaves((leaf) => {
-            const lastActive = this.lastActiveMap.get(leaf);
-
             const viewState = leaf.getViewState();
+            const type = viewState.type;
+
+            //console.log(`Checking leaf: ${leaf.getDisplayText()} (type: ${type})`);
+
             if (viewState.pinned || viewState.active) {
                 this.updateTimestamp(leaf);
                 return
             };
 
+            if (this.keepOpen(type)) {
+                return;
+            }
+
+            const lastActive = this.lastActiveMap.get(leaf);
             if (lastActive && (now - lastActive > fiveMinutes)) {
                 leaf.detach();
                 this.lastActiveMap.delete(leaf);
